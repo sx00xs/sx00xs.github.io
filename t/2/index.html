@@ -1,0 +1,267 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>自动轮播广告（面向对象版）</title>
+    <style>
+        /*把body,div,ul,li的内外边距全部重置为0，并在下面重新设置，以保证轮播图在各浏览器中展示的效果一致*/
+
+        body, div, ul, li {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style-type: none;  /*去除列表样式*/
+        }
+
+        body {
+            background: #000; /*文档背景色设置为黑色*/
+            text-align: center; /*居中对齐*/
+            font: 12px/20px Arial;/*设置字号，行间距和字体*/
+        }
+
+        #box {
+            position: relative;/*这是最外部的div包含元素，需设置为相对*/
+            width: 492px;
+            height: 172px;
+            background: #fff;/*轮播图框背景设置为白色*/
+            border-radius: 5px;
+            border: 8px solid #fff;
+            margin: 10px auto;
+            cursor: pointer;
+        }
+
+            #box .list {
+                position: relative;/*这是第2个div包含元素，需设置为相对*/
+                width: 490px;/*内部div高度比外部div少2px，以此组成2px宽的外边框*/
+                height: 170px;
+                overflow: hidden;
+            }
+
+                #box .list ul {
+                    position: absolute; /*内部轮播图的定位，须设置为绝对*/
+                    top: 0;
+                    left: 0;
+                }
+
+                #box .list li {
+                    width: 490px;
+                    height: 170px;
+                    overflow: hidden;
+                }
+
+                 /*count元素由script动态生成，定位于父元素的右下角*/
+            #box .count {
+                position: absolute;
+                right: 0;
+                bottom: 5px;
+            }
+
+                #box .count li {
+                    color: #fff;/*轮播图按钮字体设置为白色*/
+                    float: left;
+                    width: 20px;
+                    height: 20px;
+                    cursor: pointer;
+                    margin-right: 5px;
+                    overflow: hidden;
+                    background: #F90;/*轮播图按钮背景色设置为棕色*/
+                    opacity: 0.7;/*透明度*/
+                    filter: alpha(opacity=70);/*兼容老浏览器*/
+                    border-radius: 20px;
+                }
+
+                    #box .count li.current {
+                        color: #fff;/*轮播图选中按钮字体色彩设置为白色*/
+                        opacity: 1;
+                        filter: alpha(opacity=100);
+                        font-weight: 700;
+                        background: #f60;/*轮播图按钮背景色设置为深棕色*/
+                    }
+
+        #tmp {
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+        }
+    </style>
+    <script type="text/javascript">
+//获取ID（此函数为原代码所有）
+       // var $ = function (id) {
+            //使用tpeof操作符检测传入的参数是否为字符串，为真，则传递给getElementById命令，返回一个对象
+            //在下面的代码中，将使用此函数获取文档最外层的id名为"box"的元素引用。
+           // return typeof id === "string" ? document.getElementById(id) : id
+        //};
+
+        //获取tagName（此函数为原代码所有）
+        //var $$ = function (tagName, oParent) {
+            //此函数即是传入由获取id函数返回的对象，并用此对象调用getElementsByTagName方法，获取内部标签名，
+            //最后返回一个由标签名构成的数组。
+           // return (oParent || document).getElementsByTagName(tagName)
+       // };
+
+//自动播放对象
+        var AutoPlay = function (id) {
+            //定义对象，此对象有一个方法，接受名为"id"的参数。
+            this.initialize(id)
+        };
+        //给AutoPlay对象添加原型字面量，由多个方法和属性组成
+        //在变量命名方面，使用了匈牙利命名法，
+AutoPlay.prototype = {
+	initialize: function (id)
+	{
+	    //把this赋值给oThis，因为当函数以函数方式调用时，this指针会被错误绑定到全局对象上，
+	    //进而无法访问内部各属性与方法，采用这种方式就可避免此问题
+	    //通常会命名为that或self,此处采用匈牙利命名法,oThis中的"o"，表示是一引用类型
+	    var oThis = this;
+
+	    //调用$函数，获取最外层的div引用，可用下面这行代码替换
+	    //this.oBox = $(id);
+	    this.oBox = document.getElementById("box");
+
+	    //获取div元素中的无序列表ul中的第一项引用
+	    //this.oUl = $$("ul", this.oBox)[0];
+	    this.oUl = document.getElementById("box").getElementsByTagName("ul")[0];
+	    //this.oUl = this.oBox.getElementsByTagName("ul")[0];
+
+	    //获取img对象
+	    //this.aImg = $$("img", this.oBox);
+	    this.aImg = document.getElementById("box").getElementsByTagName("img");
+	    //this.aImg = this.oBox.getElementsByTagName("img");
+
+	    //定义计时器，值为null表示其值应为一个对象
+	    this.timer = null;
+
+	    //定义自动计时器，值为null表示它的值应为一个引用（对象）
+	    this.autoTimer = null;
+
+        //当前轮播图按钮索引值，i表示它应为整型
+	    this.iNow = 0;
+
+	    //利用script动态创建轮播图按钮
+	    this.creatBtn();
+
+	    //获取按钮
+	    //this.aBtn = $$("li", this.oCount);
+	    this.aBtn = this.oCount.getElementsByTagName("li");
+
+        //声明切换方法
+	    this.toggle();
+
+	    //定义自动计时器，每3000毫秒(每3秒)切换至下一张图片
+		this.autoTimer = setInterval(function ()
+		{
+			oThis.next()
+		}, 3000);
+
+	    //注册"mouseover"事件处理程序，当鼠标移入出后，清除自动计时器，此时图片静止，停止切换
+		this.oBox.onmouseover = function ()
+		{
+			clearInterval(oThis.autoTimer)
+		};
+
+	    //注册"mouseout"事件处理程序，当鼠标移出后，恢复自动计时器，自动切换
+		this.oBox.onmouseout = function ()
+		{
+			oThis.autoTimer = setInterval(function ()
+			{
+				oThis.next()
+			}, 3000)
+		};
+
+	    //for循环遍历轮播图按钮，注册mouseover事件处理程序，当鼠标指针悬浮悬浮于按钮上时，
+	    //调用toggle()方法，切换至此图
+		for (var i = 0; i < this.aBtn.length; i++)
+		{
+			this.aBtn[i].index = i;
+			this.aBtn[i].onmouseover = function ()
+			{
+				oThis.iNow = this.index;
+				oThis.toggle()
+			}
+		}
+	},
+
+    //定义creatBtn方法
+	creatBtn: function ()
+	{
+	    //创建ul元素
+	    this.oCount = document.createElement("ul");
+
+	    //创建文档片段对象，将创建的li元素附着在片段对象上，最后再添加到ul元素上
+	    this.oFrag = document.createDocumentFragment();
+
+	    //添加类名
+	    this.oCount.className = "count";
+
+	    //for循环创建li元素，并添加到文档片段对象上
+		for (var i = 0; i < this.aImg.length; i++)
+		{
+			var oLi = document.createElement("li");
+			oLi.innerHTML = i + 1;//轮播图片序号
+			this.oFrag.appendChild(oLi)
+		}
+	    //把文档片段添加到ul元素上
+		this.oCount.appendChild(this.oFrag);
+
+	    //把ul添加到div元素上
+		this.oBox.appendChild(this.oCount)
+	},
+
+    //定义toggle方法
+	toggle: function ()
+	{
+	    //遍历按钮并设置其类名为空
+	    for (var i = 0; i < this.aBtn.length; i++)
+	        this.aBtn[i].className = "";
+	    //为要切换至的图片设置类名
+	    this.aBtn[this.iNow].className = "current";
+	    //调用doMove方法，并传入偏移量
+		this.doMove(-(this.iNow * this.aImg[0].offsetHeight))
+	},
+
+    //定义next()方法
+	next: function ()
+	{
+		this.iNow++;
+		this.iNow == this.aBtn.length && (this.iNow = 0);
+		this.toggle()
+	},
+
+    //定义doMove方法
+	doMove: function (iTarget)
+	{
+		var oThis = this;
+		clearInterval(oThis.timer);
+		oThis.timer = setInterval(function ()
+		{
+			var iSpeed = (iTarget - oThis.oUl.offsetTop) / 5;
+			iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+			oThis.oUl.offsetTop == iTarget ? clearInterval(oThis.timer) : (oThis.oUl.style.top = oThis.oUl.offsetTop + iSpeed + "px")
+		}, 30)
+	}
+};
+//注册页面加载事件
+window.onload = function ()
+{
+	new AutoPlay("box");
+};
+    </script>
+</head>
+<body>
+    <!--文档主体结构由两个dvi包裹一个ul无序列表构成，内外div大小差2px，构成一个白色的方框，包裹着轮播图-->
+    <div id="box">
+        <div class="list">
+            <ul>
+                <li><img src="img/01.jpg" width="490" height="170" /></li>
+                <li><img src="img/02.jpg" width="490" height="170" /></li>
+                <li><img src="img/03.jpg" width="490" height="170" /></li>
+                <li><img src="img/04.jpg" width="490" height="170" /></li>
+                <li><img src="img/05.jpg" width="490" height="170" /></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
