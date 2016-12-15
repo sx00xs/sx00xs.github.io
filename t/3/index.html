@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>timer-计时器</title>
+    <style>
+        div{
+            width:300px;
+            margin:0 auto;
+            padding-top:60px;
+        }
+        #timer{
+            font-size:30px;
+            text-align:center;
+        }
+        #start{
+            font-weight:bold;
+        }
+
+    </style>
+    <script>
+        var intervalId,
+            pattern = /^\d$/,
+            intervalSeconds = 1000,
+            secondIncrement = 0;
+
+
+        window.onload = function () {
+            var start = document.getElementById("start");
+            var timer = document.getElementById("timer");
+
+
+            function handleTimer() {
+                if (!intervalId) {
+                    intervalId = setInterval(function () {
+                        secondIncrement++;                        
+                        var someDate = new Date("1111/1/1,0:0:0");
+                        someDate.setSeconds(secondIncrement);
+                        
+                        var hours = someDate.getHours();
+                        hours = pattern.test(hours) ? "0" + hours + ":" : hours + ":";
+                        var minutes = someDate.getMinutes();
+                        minutes = pattern.test(minutes) ? "0" + minutes + ":" : minutes + ":";
+                        var seconds = someDate.getSeconds();
+                        seconds = pattern.test(seconds) ? "0" + seconds : seconds;
+                        timer.value = hours + minutes + seconds;
+                    }, intervalSeconds);
+                    this.innerHTML = "Pause";
+                } else {
+                    clearInterval(intervalId);
+                    intervalId = null;
+                    this.innerHTML = "Start";
+                }
+            }
+
+
+            start.addEventListener("click", handleTimer, false);
+
+        }
+    </script>
+</head>
+<body>
+    
+
+    <div>
+        <p><input type="text" id="timer" value="00:00:00" /></p>
+        <button id="start">Start</button>
+    </div>
+
+
+</body>
+</html>
