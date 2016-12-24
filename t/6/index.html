@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>导航条1</title>
+    <style>
+        .table1{
+            border:3px solid black;
+            width:500px;
+        }
+        .table2{
+            width:500px;
+        }
+        .td1{
+            text-align:center;
+            background:#000080;
+        }
+        .td2{
+            text-align:center;
+            background:#ff0000;
+        }
+        .td3{
+            text-align:center;
+            background:#c0c0c0;
+        }
+        .td4{
+            text-align:center;
+            background:#008080;
+        }
+        .td1> b{
+            color:#00ffff;
+        }
+        .td2 b{
+            color:#000000;
+        }
+        .td3 b{
+            color:#800000;
+        }
+        .td4 b{
+            color:#ffff00;
+        }
+        .table2 td{
+            text-align:center;
+            width:250px;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        var new_url = "";
+        function displayUrl() {
+            document.forms[0].display.value = new_url;
+        }
+        function leapTo() {
+            if ((new_url != '') && (new_url != null)) {
+                window.location = new_url;
+            } else {
+                alert("\nYou must first select a Radio Button.");
+            }
+        }
+    </script>
+    <form>
+        <table class="table1">
+            <tr>
+                <td class="td1"><input type="radio" name="buttons2" onclick="new_url = 'http://www.163.com';displayUrl()" /><b>网易</b></td>
+                <td class="td2"><input type="radio" name="buttons2" onclick="new_url = 'http://www.sina.com.cn';displayUrl()" /><b>新浪</b></td>
+                <td class="td3"><input type="radio" name="buttons2" onclick="new_url = 'http://www.sohu.com';displayUrl()" /><b>搜狐</b></td>
+                <td class="td4"><input type="radio" name="buttons2" onclick="new_url = 'http://www.ifeng.com/'; displayUrl()" /><b>凤凰</b></td>
+            </tr>
+        </table>
+        <br /><br /><br />
+        <table class="table2">
+            <tr>
+                <td><input type="text" size="30" name="display" /></td>
+                <td><input type="button" value="去看看" onclick="leapTo()" /></td>
+            </tr>
+        </table>
+    </form>
+
+</body>
+</html>
