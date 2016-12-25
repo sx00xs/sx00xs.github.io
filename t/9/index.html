@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>标题显示关闭时间</title>
+</head>
+<body >
+    <script>
+        function clock() {
+            i = i - 1;
+            document.title = "本窗口将在" + i + "秒后自动关闭";
+            if (i > 0)
+                setTimeout("clock();", 1000);
+            else
+                self.close();
+        }
+        var i = 10;
+        clock();
+    </script>
+</body>
+</html>

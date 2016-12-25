@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>在input框显示当前时间</title>
+    <style>
+        div{
+            width:300px;
+            padding-top:100px;
+            margin:0 auto;
+        }
+    </style>
+</head>
+<body >
+    <div>
+        现在时间是：<input type="text" id="name1" size="16" value="" />
+    </div>
+    <script>
+        setTimeout(function () {
+            var t = new Date();
+            var hours = t.getHours();
+            var minutes = t.getMinutes();
+            var seconds = t.getSeconds();
+            var show_str = "";
+            show_str += (hours > 12) ? "下午" : "上午";
+            show_str += ((hours > 12) ? hours - 12 : hours);
+            show_str += ((minutes < 10) ? ":0" : ":") + minutes;
+            show_str += ((seconds < 10) ? ":0" : ":") + seconds;
+            document.getElementById("name1").value = show_str;
+
+            setTimeout(arguments.callee, 1000);
+        }, 1000);
+
+
+    </script>
+</body>
+</html>
