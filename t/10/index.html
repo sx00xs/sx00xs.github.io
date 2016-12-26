@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>文字跑马灯</title>
+    <style>
+        body {
+            background: #ffffff;
+        }
+        form{
+            width:300px;
+            padding-top:100px;
+            margin:0 auto;
+        }
+        input{
+            font-size:20px;
+        }
+    </style>
+
+</head>
+<body>
+    <script>
+        var myMainMessage = "  欢迎光临美食一条街，喝喝小酒，唱唱小曲，看看楼下的风景，你可以多写入一些信息，谢谢，请多提意见！ ";
+        var speed = 150;
+        var scrollingRegion = 50;
+
+        var startPosition = 0;
+        function mainTextScroller() {
+            var mainMessage = myMainMessage;
+            var tempLoc = (scrollingRegion * 3 / mainMessage.length) + 1;
+            if (tempLoc < 1) {
+                tempLoc = 1;
+            }
+            var counter;
+            for (counter = 0; counter <= tempLoc; counter++) {
+                mainMessage += mainMessage;
+            }
+            document.forms[0].elements[0].value = mainMessage.substring(startPosition, startPosition + scrollingRegion);
+            startPosition++;
+            if (startPosition > scrollingRegion)
+                startPosition = 0;
+            setTimeout("mainTextScroller()", speed);
+
+
+        }
+        window.onload = function () {
+            mainTextScroller();
+        };
+    </script>
+    <form name="mainForm">
+        <input type="text" name="mainTextScroller" size="40" value="" />
+    </form>
+</body>
+</html>
