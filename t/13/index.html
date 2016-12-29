@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>表单中的时钟</title>
+    <style>
+        body{
+            color:#ffffff;
+        }
+        input{
+            font-size:16px;
+        }
+    </style>
+</head>
+<body onload="startClock()">
+    <script>
+        var timerID = null;
+        var timerRunning = false;
+
+        function stopClock() {
+            if (timerRunning) {
+                clearTimeout(timerID);
+                timerRunning = false;
+            }            
+        }
+
+        function startClock() {
+            stopClock();
+            showTime();
+        }
+
+        function showTime() {
+            var now = new Date();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
+            var timeValue = "" + ((hours > 12) ? hours - 12 : hours);
+            timeValue += ((minutes < 10) ? ":0" : ":") + minutes;
+            timeValue += ((seconds < 10) ? ":0" : ":") + seconds;
+            if (hours >= 6 && hours <= 12) {
+                timeValue += ("上午");
+            }
+            if (hours > 12 && hours <= 18) {
+                timeValue += ("下午");
+            }
+            if (hours > 18 && hours <= 24) {
+                timeValue += ("晚上");
+            }
+            if (hours < 6) {
+                timeValue += ("深夜");
+            }
+
+            var form1 = document.getElementById("clock");
+            form1.face.value = timeValue;
+
+            timerID = setTimeout("showTime()", 1000);
+            timerRunning = true;
+
+        }
+    </script>
+    <form method="post" id="clock">
+        <p>
+            <input type="text" name="face" size="11" />
+        </p>
+    </form>
+</body>
+</html>
