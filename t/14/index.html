@@ -1,0 +1,17 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <script>
+        var months = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
+        var days = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"];
+        var today = new Date();
+        var year = today.getFullYear();
+        var date = today.getDate();
+        document.title = "今天是：" + year + "年" + months[today.getMonth()] + date + "日" + days[today.getDay()];
+    </script>
+</body>
+</html>
