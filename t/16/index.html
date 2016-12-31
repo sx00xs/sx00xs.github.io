@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>移动列表项</title>
+</head>
+<body>
+    <form>
+        <select id="selLocations1" size="5">
+            <option value="深圳">深圳</option>
+            <option value="广州">广州</option>
+            <option value="珠海">珠海</option>
+            <option value="">东莞</option>
+            <option>韶关</option>
+        </select>
+        <select id="selLocations2" size="5"></select>
+        <p>
+            点击"移动"按钮把城市名称按输入的序号移到右侧的列表中:<br>
+            <input type="text" id="txtIndex" value="0"><br>
+            <input type="button" value="移动" id="btnMove">
+        </p>
+    </form>
+    <script type="text/javascript">
+        (function () {
+            var btn = document.getElementById("btnMove");
+
+            btn.addEventListener("click", function (event) {
+                var selectbox1 = document.getElementById("selLocations1"),
+                    selectbox2 = document.getElementById("selLocations2"),
+                    textbox = document.getElementById("txtIndex");
+
+                selectbox2.appendChild(selectbox1.options[parseInt(textbox.value, 10)]);
+            });
+        })();
+
+
+
+
+
+
+    </script>
+</body>
+</html>
