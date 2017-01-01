@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>表单 focus 事件</title>
+</head>
+<body>
+    <p>页面加载后文本框便会获得 focus ，可以直接开始输入文字。</p>
+    <form method="post" action="javascript:alert('表单已经提交!')" id="myForm">
+        <div>
+            <label for="comments">请输入你的评论：</label><br />
+            <textarea rows="10" cols="50" id="comments" name="comments" autofocus></textarea>
+        </div>
+        <input type="submit" value="提交表单" id="submit-btn" />
+    </form>
+    <script>
+        window.onload = function (event) {
+            var element = document.forms[0].elements[0];
+
+            if (element.autofocus !== true) {
+                element.focus(); console.log("JS focus");
+            }
+        };
+    </script>
+</body>
+</html>
