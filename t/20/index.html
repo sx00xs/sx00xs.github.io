@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>表单输入框邮箱验证(html5)</title>
+</head>
+<body>
+    <p>在未输入邮箱地址之前提交表单看看会怎样</p>
+    <form method="post" action="javascript:alert('Form submitted!')" id="myForm">
+        <label for="email">邮箱:</label> <input type="email" name="email" id="email" required>
+        <input type="submit" value="提交表单"><br>
+        <input type="button" value="验证" id="btnCheck"><input type="button" value="是否开启了验证功能?" id="btnWill">
+    </form>
+    <script>
+        var btnCheck = document.getElementById("btnCheck");
+        var btnWill = document.getElementById("btnWill");
+
+        btnCheck.addEventListener("click", function (event) {
+            alert(document.forms[0].elements[0].checkValidity());
+        });
+
+        btnWill.addEventListener("click", function (event) {
+            alert(document.forms[0].elements[0].willValidate);
+        });
+
+    </script>
+</body>
+</html>
