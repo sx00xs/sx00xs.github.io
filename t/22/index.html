@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>HTML5 Canvas打印文本</title>
+</head>
+<body>
+    <canvas id="drawing" width="200" height="200">你的浏览器不支持canvas标签</canvas>
+    <script>
+        window.onload = function () {
+            var drawing = document.getElementById("drawing");
+
+            if (drawing.getContext) {
+                var context = drawing.getContext("2d");
+
+                context.beginPath();
+
+                context.arc(100, 100, 99, 0, 2 * Math.PI, false);
+
+                context.moveTo(194, 100);
+                context.arc(100, 100, 94, 0, 2 * Math.PI, false);
+
+                context.moveTo(100, 100);
+                context.lineTo(100, 15);
+
+                context.moveTo(100, 100);
+                context.lineTo(35, 100);
+
+                context.stroke();
+
+                if (context.strokeText) {
+                    context.font = "bold 14px Arial";
+                    context.textAlign = "center";
+                    context.textBaseline = "middle";
+                    context.fillText("距高考还有100天!", 100, 20);
+                } else {
+                    alert("你的浏览器不支持canvas文本API.");
+                }
+            }
+        };
+    </script>
+</body>
+</html>
