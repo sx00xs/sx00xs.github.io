@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>canvas 填充阴影</title>
+</head>
+<body>
+    <canvas id="drawing" width="500" height="500">你的浏览器不支持canvas标签</canvas>
+    <script>
+        window.onload = function () {
+            var drawing = document.getElementById("drawing");
+
+            if (drawing.getContext) {
+                var content = drawing.getContext("2d");
+
+                content.shadowOffsetX = 7;
+                content.shadowOffsetY = 7;
+                content.shadowBlur = 3;
+                content.shadowColor = "rgba(0,0,0,0.5)";
+
+                content.fillStyle = "9a3399";
+                content.fillRect(30, 30, 70, 70);
+
+                content.fillStyle = "rgba(0,0,255,1)";
+                content.fillRect(50, 50, 70, 70);
+            }
+        };
+    </script>
+</body>
+</html>
