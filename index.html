@@ -1,68 +1,79 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>sx00xs作品列表</title>
-	<meta charset="utf-8" />
-    <style>
-        div{
-            font-family:'Palatino Linotype',serif;
-            font-size:200%;
-            color:#2e37e9;
-            width:600px;
-            margin:0 auto;
-            margin-top:30px;
-            padding:5px;
-            border:1px solid gray;
-            border-radius:5px;
-        }
-        ul{
-            display:block;
-            list-style:none;
-            line-height:200%;
-            margin-bottom:
-        }
-        a{
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="stylesheets/default.css" type="text/css" />
+    <script src="js/jquery-3.1.1.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+            $(".level1>a").click(function () {
+                $(this).addClass("current")
+                .next().show()
+                .parent().siblings().children("a").removeClass("current")
+                .next().hide()
+                return false;
+            });
+        });
+    </script>
 
-            font-weight:bold;
-            text-decoration:none;
-
-        }
-        a:hover{
-            background-color:#459241;
-            color:white;
-        }
-
-    </style>
 </head>
 <body>
-    <div>
-        <ul>
-            <li><a href="t/1/index.html" target="_blank">1.倒计时-countdown</a></li>
-            <li><a href="t/2/index.html" target="_blank">2.轮播图</a></li>
-            <li><a href="t/3/index.html" target="_blank">3.timer-计时器</a></li>
-            <li><a href="t/4/index.html" target="_blank">4.翻牌答题</a></li>
-			<li><a href="t/5/index.html" target="_blank">5.jQuery翻转效果</a></li>
-			<li><a href="t/6/index.html" target="_blank">6.导航条1</a></li>
-			<li><a href="t/7/index.html" target="_blank">7.自动切换背景色彩</a></li>	
-			<li><a href="t/8/index.html" target="_blank">8.在input框显示当前时间</a></li>
-			<li><a href="t/9/index.html" target="_blank">9.网页标题显示关闭时间</a></li>	
-			<li><a href="t/10/index.html" target="_blank">10.文字跑马灯</a></li>
-			<li><a href="t/11/index.html" target="_blank">11.鼠标悬浮看大图</a></li>
-			<li><a href="t/12/index.html" target="_blank">12.鼠标悬浮显示大图(jQuery实现)</a></li>
-			<li><a href="t/13/index.html" target="_blank">13.表单中的时钟</a></li>
-			<li><a href="t/14/index.html" target="_blank">14.网页标题显示日期</a></li>
-			<li><a href="t/15/index.html" target="_blank">15.表单字段自动切换输入焦点</a></li>
-			<li><a href="t/16/index.html" target="_blank">16.移动列表项</a></li>
-			<li><a href="t/17/index.html" target="_blank">17.表单 focus 事件</a></li>
-			<li><a href="t/18/index.html" target="_blank">18.HTML5-input输入框pattern验证</a></li>
-			<li><a href="t/19/index.html" target="_blank">19.文本框焦点事件(jQuery实现)</a></li>
-			<li><a href="t/20/index.html" target="_blank">20.表单输入框邮箱验证(html5)</a></li>
-			<li><a href="t/21/index.html" target="_blank">21.HTML5 Canvas填充矩形</a></li>
-			<li><a href="t/22/index.html" target="_blank">22.HTML5 Canvas打印文本</a></li>
-			<li><a href="t/23/index.html" target="_blank">23.HTML5 Canvas填充阴影</a></li>
-			<li><a href="t/24/index.html" target="_blank">24.表单选项全选反选全不选(jQuery)</a></li>
-			
+    <div class="box">
+        <ul class="menu">
+            <li class="level1">
+                <a href="#none">原生JavaScript</a>
+                <ul class="level2">
+                    <li><a href="t/1/index.html" target="_blank">倒计时-countdown</a></li>
+                    <li><a href="t/2/index.html" target="_blank">轮播图</a></li>
+                    <li><a href="t/3/index.html" target="_blank">timer-计时器</a></li>
+                    <li><a href="t/4/index.html" target="_blank">翻牌答题</a></li>
+                    <li><a href="t/6/index.html" target="_blank">导航条1</a></li>
+                    <li><a href="t/7/index.html" target="_blank">自动切换背景色彩</a></li>
+                    <li><a href="t/8/index.html" target="_blank">在input框显示当前时间</a></li>
+                    <li><a href="t/9/index.html" target="_blank">网页标题显示关闭时间</a></li>
+                    <li><a href="t/10/index.html" target="_blank">文字跑马灯</a></li>
+                    <li><a href="t/11/index.html" target="_blank">鼠标悬浮看大图</a></li>
+                    <li><a href="t/13/index.html" target="_blank">表单中的时钟</a></li>
+                    <li><a href="t/14/index.html" target="_blank">网页标题显示日期</a></li>
+                    <li><a href="t/15/index.html" target="_blank">表单字段自动切换输入焦点</a></li>
+                    <li><a href="t/16/index.html" target="_blank">移动列表项</a></li>
+                    <li><a href="t/17/index.html" target="_blank">表单 focus 事件</a></li>
+                </ul>
+            </li>
+            <li class="level1">
+                <a href="#none">jQuery</a>
+                <ul class="level2">
+                    <li><a href="t/5/index.html" target="_blank">jQuery翻转效果</a></li>
+                    <li><a href="t/12/index.html" target="_blank">鼠标悬浮显示大图(jQuery实现)</a></li>
+                    <li><a href="t/19/index.html" target="_blank">文本框焦点事件(jQuery实现)</a></li>
+                    <li><a href="t/24/index.html" target="_blank">表单选项全选反选全不选(jQuery)</a></li>
+                </ul>
+            </li>
+            <li class="level1">
+                <a href="#none">HTML5</a>
+                <ul class="level2">
+                    <li><a href="t/18/index.html" target="_blank">HTML5-input输入框pattern验证</a></li>
+                    <li><a href="t/20/index.html" target="_blank">表单输入框邮箱验证(html5)</a></li>
+                    <li><a href="t/21/index.html" target="_blank">HTML5 Canvas填充矩形</a></li>
+                    <li><a href="t/22/index.html" target="_blank">HTML5 Canvas打印文本</a></li>
+                    <li><a href="t/23/index.html" target="_blank">HTML5 Canvas填充阴影</a></li>
+                </ul>
+            </li>
+            <li class="level1">
+                <a href="#none">BootStrap</a>
+                <ul class="level2">
+                    <li><a href="#none"></a></li>
+                </ul>
+            </li>
+            <li class="level1">
+                <a href="#none">Angularjs</a>
+                <ul class="level2">
+                    <li><a href="#none"></a></li>
+                </ul>
+            </li>
+
         </ul>
     </div>
 </body>
