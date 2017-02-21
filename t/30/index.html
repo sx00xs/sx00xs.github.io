@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>函数接收参数并弹出</title>
+    <style>
+        body{
+            font:12px/1.5 Tahoma;  /*字号、行高与字体设置*/
+            text-align:center; /*文字居中*/
+        }
+        code,input,button{
+            font-family:inherit; /*字体继承*/
+        }
+        input{
+            border:1px solid #ccc;  /*边框颜色为灰色*/
+            padding:3px;/*内边距为3像素*/
+        }
+        button{
+            cursor:pointer; /*鼠标指针设置为手形*/
+        }
+    </style>
+    <script>
+        //此函数接收2个参数，再分别用alert打印出参数的值
+        var myFn = function (a, b) {
+            alert(a.value);
+            alert(b.value);
+        };
+        window.onload = function () {
+            var inputs = document.getElementsByTagName("input"); //使用getElementsByTagName方法获取所有input元素
+            var button1 = document.getElementsByTagName("button")[0]; //使用getElementsByTagName方法获取按钮集合，留意之所以使用[]标示法，是因为此方法返回的是一个nodelist集合
+            button1.onclick = function () { //给按钮注册click处理程序，在函数体内调用前面定义的myFn函数
+                myFn(inputs[0], inputs[1]);
+            }
+        };
+    </script>
+</head>
+<body>
+    <!--分别用块元素p包裹2个input行内元素和1个button元素-->
+    <p><input type="text" value="深圳" /></p>
+    <p><input type="text" value="龙华新区" /></p>
+    <p><button>传参</button></p>
+</body>
+</html>
