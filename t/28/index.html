@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>DIV属性随意改</title>
+    <style>
+        #container{
+            width:500px;     /*外部div的宽度*/
+            margin:0 auto;   /*上下外边距为0，左右外边距自动，即左右置中*/
+            padding:0;        /*内边距为0*/
+            text-align:center; /*文本置中*/
+        }
+        #inner{                
+            width:100px;        /*长宽各100的正方形黑色方块*/
+            height:100px;
+            background:black;
+            margin:10px auto;    /*左右置中，上下外边距10像素*/
+            display:block;       /*显示设置为块元素*/
+        }
+    </style>
+    <script>
+        //此函数的作用是改变元素样式，接收3个参数，元素名，属性名，属性值
+        var changeStyle = function (elem, attr, value) { 
+            elem.style[attr] = value;
+        };
+        window.onload = function () {  //调用 onload，页面加载后就执行
+            var buttons = document.getElementsByTagName("input"); //获取所有的按钮，此命令返回一个Nodelist对象集
+            var innerDiv = document.getElementById("inner");   //获取inner元素的引用，此命令返回一个对象引用 
+            var attrName = ["width", "height", "background", "display", "display"];  //属性名数组
+            var attrValue = ["200px", "200px", "red", "none", "block"];  //属性值数组
+
+            for (var i = 0; i < buttons.length; i++) { //利用for循环给所有按钮注册click事件处理程序
+                buttons[i].index = i;    //综合使用[]和.表示法，给每个按钮添加一个索引值
+                buttons[i].onclick = function () {  //给每个按钮都注册单击click事件处理程序
+
+                    this.index == buttons.length - 1 && (innerDiv.style.cssText = "");//这种写法很妙，this.index的值不变，0-4，不过我暂未完全理解它的妙处
+
+                    changeStyle(innerDiv, attrName[this.index], attrValue[this.index]);//调用changeStyle函数，改变样式
+                }
+            }
+        };
+    </script>
+</head>
+<body>
+    <div id="container">                
+        <input type="button" value="变宽" />
+        <input type="button" value="变高" />
+        <input type="button" value="变色" />
+        <input type="button" value="隐藏" />
+        <input type="button" value="重置" />
+        <div id="inner"></div>
+    </div>
+</body>
+</html>
